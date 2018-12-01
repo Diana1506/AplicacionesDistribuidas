@@ -1,0 +1,375 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:8889
+-- Generation Time: Nov 28, 2018 at 01:50 AM
+-- Server version: 5.7.21
+-- PHP Version: 7.2.7
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `TalachinTalachon`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Calificaciones`
+--
+
+CREATE TABLE `Calificaciones` (
+  `IdCalificacion` int(6) NOT NULL,
+  `Calificacion` int(1) NOT NULL,
+  `Comentario` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Clientes`
+--
+
+CREATE TABLE `Clientes` (
+  `IdUsuario` int(4) NOT NULL,
+  `Nombre` varchar(60) NOT NULL,
+  `ApellidoP` varchar(60) NOT NULL,
+  `ApellidoM` varchar(60) NOT NULL,
+  `Correo` varchar(60) NOT NULL,
+  `Telefono` varchar(10) NOT NULL,
+  `IdUbicacion` int(3) NOT NULL,
+  `IdTarjeta` varchar(16) NOT NULL,
+  `IdCuenta` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Clientes`
+--
+
+INSERT INTO `Clientes` (`IdUsuario`, `Nombre`, `ApellidoP`, `ApellidoM`, `Correo`, `Telefono`, `IdUbicacion`, `IdTarjeta`, `IdCuenta`) VALUES
+(4, 'Adrián', 'Aguilar', 'Torrez', 'adrian@gmail.com', '59323570', 8, '5555444433332222', 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Cuentas`
+--
+
+CREATE TABLE `Cuentas` (
+  `IdCuenta` int(4) NOT NULL,
+  `Usuario` varchar(16) NOT NULL,
+  `Contrasena` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Cuentas`
+--
+
+INSERT INTO `Cuentas` (`IdCuenta`, `Usuario`, `Contrasena`) VALUES
+(13, 'AdrianP', '123456');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Delegacion`
+--
+
+CREATE TABLE `Delegacion` (
+  `IdDelegacion` int(2) NOT NULL,
+  `Delegacion` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Delegacion`
+--
+
+INSERT INTO `Delegacion` (`IdDelegacion`, `Delegacion`) VALUES
+(1, 'Alvaro Obregón'),
+(2, 'Azcapotzalco'),
+(3, 'Benito Juárez'),
+(4, 'Coyoacán'),
+(5, 'Cuajimalpa'),
+(6, 'Iztacalco'),
+(7, 'Gustavo A. Madero'),
+(8, 'Magdalena Contreras'),
+(9, 'Miguel Hidalgo'),
+(10, 'Milpa Alta'),
+(11, 'Tláhuac'),
+(12, 'Tlalpan'),
+(13, 'Venustiano Carranza'),
+(14, 'Xochimilco');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Especialidades`
+--
+
+CREATE TABLE `Especialidades` (
+  `IdEspecialidad` int(3) NOT NULL,
+  `Nombre` varchar(30) NOT NULL,
+  `Descripcion` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Proveedor-Especialidad`
+--
+
+CREATE TABLE `Proveedor-Especialidad` (
+  `IdPE` int(5) NOT NULL,
+  `IdProveedor` int(4) NOT NULL,
+  `IdEspecialidad` int(3) NOT NULL,
+  `Costo` float NOT NULL,
+  `Descripcion` varchar(255) NOT NULL,
+  `IdCalificacion` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Proveedores`
+--
+
+CREATE TABLE `Proveedores` (
+  `IdProveedor` int(4) NOT NULL,
+  `Nombre` varchar(60) NOT NULL,
+  `ApellidoP` varchar(60) NOT NULL,
+  `ApellidoM` varchar(60) NOT NULL,
+  `Correo` varchar(60) NOT NULL,
+  `Telefono` int(10) NOT NULL,
+  `IdUbicacion` int(3) NOT NULL,
+  `IdTarjeta` varchar(16) NOT NULL,
+  `IdCuenta` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Servicio`
+--
+
+CREATE TABLE `Servicio` (
+  `IdServicio` int(5) NOT NULL,
+  `IdUsuario` int(4) NOT NULL,
+  `IdPE` int(5) NOT NULL,
+  `Agenda` datetime NOT NULL,
+  `Confirmacion` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Tarjeta`
+--
+
+CREATE TABLE `Tarjeta` (
+  `Numero` varchar(16) NOT NULL,
+  `CVC` int(3) NOT NULL,
+  `Fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Tarjeta`
+--
+
+INSERT INTO `Tarjeta` (`Numero`, `CVC`, `Fecha`) VALUES
+('5555444433332222', 123, '2019-02-01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Ubicaciones`
+--
+
+CREATE TABLE `Ubicaciones` (
+  `IdUbicacion` int(3) NOT NULL,
+  `IdDelegacion` int(2) NOT NULL,
+  `Calle` varchar(30) NOT NULL,
+  `CP` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Ubicaciones`
+--
+
+INSERT INTO `Ubicaciones` (`IdUbicacion`, `IdDelegacion`, `Calle`, `CP`) VALUES
+(8, 8, 'Calle Arroyo Seco', 55770);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Calificaciones`
+--
+ALTER TABLE `Calificaciones`
+  ADD PRIMARY KEY (`IdCalificacion`);
+
+--
+-- Indexes for table `Clientes`
+--
+ALTER TABLE `Clientes`
+  ADD PRIMARY KEY (`IdUsuario`),
+  ADD KEY `Cliente-Ubicacion` (`IdUbicacion`),
+  ADD KEY `Cliente-Cuenta` (`IdCuenta`),
+  ADD KEY `Cliente-Tarjeta` (`IdTarjeta`);
+
+--
+-- Indexes for table `Cuentas`
+--
+ALTER TABLE `Cuentas`
+  ADD PRIMARY KEY (`IdCuenta`);
+
+--
+-- Indexes for table `Delegacion`
+--
+ALTER TABLE `Delegacion`
+  ADD PRIMARY KEY (`IdDelegacion`);
+
+--
+-- Indexes for table `Especialidades`
+--
+ALTER TABLE `Especialidades`
+  ADD PRIMARY KEY (`IdEspecialidad`);
+
+--
+-- Indexes for table `Proveedor-Especialidad`
+--
+ALTER TABLE `Proveedor-Especialidad`
+  ADD PRIMARY KEY (`IdPE`),
+  ADD KEY `Especialidad-Especialidad` (`IdEspecialidad`),
+  ADD KEY `Proveedor-Proveedor` (`IdProveedor`),
+  ADD KEY `Proveedor-Calificacion` (`IdCalificacion`);
+
+--
+-- Indexes for table `Proveedores`
+--
+ALTER TABLE `Proveedores`
+  ADD PRIMARY KEY (`IdProveedor`),
+  ADD KEY `Proveedor-Ubicacion` (`IdUbicacion`),
+  ADD KEY `Proveedor-Cuenta` (`IdCuenta`),
+  ADD KEY `Proveedor-Tarjeta` (`IdTarjeta`);
+
+--
+-- Indexes for table `Servicio`
+--
+ALTER TABLE `Servicio`
+  ADD PRIMARY KEY (`IdServicio`),
+  ADD KEY `Servicio-Proveedor` (`IdPE`),
+  ADD KEY `Servicio-Cliente` (`IdUsuario`);
+
+--
+-- Indexes for table `Tarjeta`
+--
+ALTER TABLE `Tarjeta`
+  ADD PRIMARY KEY (`Numero`);
+
+--
+-- Indexes for table `Ubicaciones`
+--
+ALTER TABLE `Ubicaciones`
+  ADD PRIMARY KEY (`IdUbicacion`),
+  ADD KEY `Ubicacion-Delegacion` (`IdDelegacion`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Calificaciones`
+--
+ALTER TABLE `Calificaciones`
+  MODIFY `IdCalificacion` int(6) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Clientes`
+--
+ALTER TABLE `Clientes`
+  MODIFY `IdUsuario` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `Cuentas`
+--
+ALTER TABLE `Cuentas`
+  MODIFY `IdCuenta` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `Delegacion`
+--
+ALTER TABLE `Delegacion`
+  MODIFY `IdDelegacion` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `Especialidades`
+--
+ALTER TABLE `Especialidades`
+  MODIFY `IdEspecialidad` int(3) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Proveedor-Especialidad`
+--
+ALTER TABLE `Proveedor-Especialidad`
+  MODIFY `IdPE` int(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Proveedores`
+--
+ALTER TABLE `Proveedores`
+  MODIFY `IdProveedor` int(4) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Servicio`
+--
+ALTER TABLE `Servicio`
+  MODIFY `IdServicio` int(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Ubicaciones`
+--
+ALTER TABLE `Ubicaciones`
+  MODIFY `IdUbicacion` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Clientes`
+--
+ALTER TABLE `Clientes`
+  ADD CONSTRAINT `Cliente-Cuenta` FOREIGN KEY (`IdCuenta`) REFERENCES `Cuentas` (`IdCuenta`),
+  ADD CONSTRAINT `Cliente-Tarjeta` FOREIGN KEY (`IdTarjeta`) REFERENCES `Tarjeta` (`Numero`),
+  ADD CONSTRAINT `Cliente-Ubicacion` FOREIGN KEY (`IdUbicacion`) REFERENCES `Ubicaciones` (`IdUbicacion`);
+
+--
+-- Constraints for table `Proveedor-Especialidad`
+--
+ALTER TABLE `Proveedor-Especialidad`
+  ADD CONSTRAINT `Especialidad-Especialidad` FOREIGN KEY (`IdEspecialidad`) REFERENCES `Especialidades` (`IdEspecialidad`),
+  ADD CONSTRAINT `Proveedor-Calificacion` FOREIGN KEY (`IdCalificacion`) REFERENCES `Calificaciones` (`IdCalificacion`),
+  ADD CONSTRAINT `Proveedor-Proveedor` FOREIGN KEY (`IdProveedor`) REFERENCES `Proveedores` (`IdProveedor`);
+
+--
+-- Constraints for table `Proveedores`
+--
+ALTER TABLE `Proveedores`
+  ADD CONSTRAINT `Proveedor-Cuenta` FOREIGN KEY (`IdCuenta`) REFERENCES `Cuentas` (`IdCuenta`),
+  ADD CONSTRAINT `Proveedor-Tarjeta` FOREIGN KEY (`IdTarjeta`) REFERENCES `Tarjeta` (`Numero`),
+  ADD CONSTRAINT `Proveedor-Ubicacion` FOREIGN KEY (`IdUbicacion`) REFERENCES `Ubicaciones` (`IdUbicacion`);
+
+--
+-- Constraints for table `Servicio`
+--
+ALTER TABLE `Servicio`
+  ADD CONSTRAINT `Servicio-Cliente` FOREIGN KEY (`IdUsuario`) REFERENCES `Clientes` (`IdUsuario`),
+  ADD CONSTRAINT `Servicio-Proveedor` FOREIGN KEY (`IdPE`) REFERENCES `Proveedor-Especialidad` (`IdPE`);
+
+--
+-- Constraints for table `Ubicaciones`
+--
+ALTER TABLE `Ubicaciones`
+  ADD CONSTRAINT `Ubicacion-Delegacion` FOREIGN KEY (`IdDelegacion`) REFERENCES `Delegacion` (`IdDelegacion`);
